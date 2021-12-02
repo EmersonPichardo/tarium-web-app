@@ -12,6 +12,9 @@ import SucursalesForm from './components/sucursal/form/sucursalesForm';
 import ProveedoresList from './components/proveedor/list/proveedoresList';
 import ProveedoresDetails from './components/proveedor/details/proveedoresDetails';
 import ProveedoresForm from './components/proveedor/form/proveedoresForm';
+import ProductosList from './components/producto/list/productosList';
+import ProductosDetails from './components/producto/details/productosDetails';
+import ProductosForm from './components/producto/form/productosForm';
 import 'antd/dist/antd.css';
 import './components/_layout/_layout.css';
 
@@ -30,6 +33,10 @@ ReactDOM.render(
           <Route path="/proveedoresDetails/:id" element={<ProveedoresDetails />} />
           <Route path="/proveedoresForm" element={<ProveedoresForm />} />
           <Route path="/proveedoresForm/:id" element={<ProveedoresForm />} />
+          <Route path="/productos" element={<ProductosList />} />
+          <Route path="/productosDetails/:id" element={<ProductosDetails />} />
+          <Route path="/productosForm" element={<ProductosForm />} />
+          <Route path="/productosForm/:id" element={<ProductosForm />} />
           <Route path="*" element={<Result
             style={{ overflowY: 'auto' }}
             status="404"

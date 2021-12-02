@@ -3,28 +3,27 @@ import { Link } from "react-router-dom";
 import { Space, Button, Tag, Popconfirm, message, Row, Col, Input, Table } from 'antd';
 import { ZoomInOutlined, PlusCircleFilled, EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons';
 import PageContent from '../../_layout/pageContent/pageContent';
-import './proveedoresList.css';
+import './productosList.css';
 
 let searchTimeout;
 
-function ProveedoresList() {
+function ProductosList() {
     const columns = [{
-        title: 'Nombre',
-        dataIndex: 'nombre',
-        key: 'nombre',
+        title: 'SKU',
+        dataIndex: 'sku',
+        key: 'sku',
         render: (text, record) => {
             return (
-                <Link to={`/proveedoresDetails/${record.id}`}>
+                <Link to={`/productosDetails/${record.id}`}>
                     <ZoomInOutlined style={{padding: '0px 6px'}}/>
                     {text}
                 </Link>
             )
         }
     }, {
-        title: 'Contacto',
-        dataIndex: 'contacto',
-        key: 'contacto',
-        render: text => text || '-'
+        title: 'Nombre',
+        dataIndex: 'nombre',
+        key: 'nombre',
     }, {
         title: 'Estado',
         dataIndex: 'estado',
@@ -45,14 +44,14 @@ function ProveedoresList() {
         width: '0px',
         render: (_, record) => (
             <Space size="large">
-                <Link to={`/proveedoresForm/${record.id}`}>
+                <Link to={`/productosForm/${record.id}`}>
                     <Button type="primary" size="small" icon={<EditOutlined />} ghost>
                         Editar
                     </Button>
                 </Link>
 
                 <Popconfirm
-                    title="¿Desea eliminar este proveedor?"
+                    title="¿Desea eliminar este producto?"
                     onConfirm={() => eliminar(record.id)}
                     okText="Sí"
                     cancelText="No"
@@ -71,10 +70,9 @@ function ProveedoresList() {
     let [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('https://localhost:44306/api/proveedores', { method: 'GET' })
+        fetch('https://localhost:44306/api/productos', { method: 'GET' })
             .then(response => response.json())
             .then(_data => {
-                console.log(_data)
                 _data.map(d => { d.key = d.id; return d; })
                 setData(_data);
                 setFilteredData(_data);
@@ -85,12 +83,12 @@ function ProveedoresList() {
     const eliminar = (id) => {
         setLoading(true);
 
-        fetch(`https://localhost:44306/api/proveedores/${id}`, { method: 'DELETE' })
+        fetch(`https://localhost:44306/api/productos/${id}`, { method: 'DELETE' })
             .then(response => {
                 if (response.status === 204) {
                     setData(data => data.filter(_data => _data.id !== id));
                     setFilteredData(filteredData => filteredData.filter(_data => _data.id !== id));
-                    message.warning('Proveedor eliminada');
+                    message.warning('Producto eliminada');
                 } else {
                     message.error('Error al eliminar');
                 }
@@ -107,8 +105,8 @@ function ProveedoresList() {
 
             setFilteredData(data.filter(_data => {
                 return (
+                    _data.sku.toLowerCase().includes(text.toLowerCase()) ||
                     _data.nombre.toLowerCase().includes(text.toLowerCase()) ||
-                    _data.contacto.toLowerCase().includes(text.toLowerCase()) ||
                     _data.estado.toLowerCase().includes(text.toLowerCase())
                 );
             }));
@@ -116,12 +114,12 @@ function ProveedoresList() {
     }
 
     return (
-        <PageContent title="Proveedores" subtitle="Listado">
+        <PageContent title="Productos" subtitle="Listado">
             <Row justify="space-between" align="middle" style={{marginBottom: '24px'}}>
                 <Col span={10}>
-                    <Link key="1" to="/proveedoresForm">
+                    <Link key="1" to="/productosForm">
                         <Button type="primary" size="large" icon={<PlusCircleFilled />}>
-                            Agregar proveedor
+                            Agregar producto
                         </Button>
                     </Link>
                 </Col>
@@ -140,4 +138,4 @@ function ProveedoresList() {
     );
 }
 
-export default ProveedoresList;
+export default ProductosList;

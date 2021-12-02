@@ -33,6 +33,7 @@ function SucursalesForm(props) {
                 <Item label="Id">{data.id}</Item>
                 <Item label="Nombre">{data.nombre}</Item>
                 <Item label="Tipo">{data.tipo}</Item>
+                <Item label="Productos">{data.catalogos.map(catalogo => { return <Tag>{catalogo.producto.nombre}</Tag> })}</Item>
                 <Item label="Estado">{<Tag color={data.estado === 'Activo' ? 'success' : 'error'}>{data.estado}</Tag>}</Item>
             </Descriptions>
 
