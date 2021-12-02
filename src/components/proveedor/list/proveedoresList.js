@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { Space, Button, Tag, Popconfirm, message, Row, Col, Input, Table } from 'antd';
 import { ZoomInOutlined, PlusCircleFilled, EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons';
 import PageContent from '../../_layout/pageContent/pageContent';
-import './sucursalesList.css';
+import './proveedoresList.css';
 
 let searchTimeout;
 
-function SucursalesList() {
+function ProveedoresList() {
     const columns = [{
         title: 'Nombre',
         dataIndex: 'nombre',
@@ -138,4 +138,4 @@ function SucursalesList() {
     );
 }
 
-export default SucursalesList;
+export default ProveedoresList;

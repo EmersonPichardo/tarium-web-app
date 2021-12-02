@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Routes, Route  } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Result, Button } from 'antd';
 import { HomeOutlined } from '@ant-design/icons';
+import Login from './components/_layout/login/login';
 import Layout from './components/_layout/_layout';
 import Home from './components/_home/home';
 import SucursalesList from './components/sucursal/list/sucursalesList';
@@ -17,12 +18,13 @@ ReactDOM.render(
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/sucursales" element={<SucursalesList />} />
           <Route path="/sucursalesDetails/:id" element={<SucursalesDetails />} />
           <Route path="/sucursalesForm" element={<SucursalesForm />} />
           <Route path="/sucursalesForm/:id" element={<SucursalesForm />} />
           <Route path="*" element={<Result
-            style={{overflowY: 'auto'}}
+            style={{ overflowY: 'auto' }}
             status="404"
             title="404"
             subTitle="Lo sentimos, esta página no existe"
