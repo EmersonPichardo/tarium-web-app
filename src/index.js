@@ -15,6 +15,12 @@ import ProveedoresForm from './components/proveedor/form/proveedoresForm';
 import ProductosList from './components/producto/list/productosList';
 import ProductosDetails from './components/producto/details/productosDetails';
 import ProductosForm from './components/producto/form/productosForm';
+import EntradasList from './components/entrada/list/entradasList';
+import EntradasDetails from './components/entrada/details/entradasDetails';
+import EntradasForm from './components/entrada/form/entradasForm';
+import SalidasList from './components/salida/list/salidasList';
+import SalidasDetails from './components/salida/details/salidasDetails';
+import SalidasForm from './components/salida/form/salidasForm';
 import 'antd/dist/antd.css';
 import './components/_layout/_layout.css';
 
@@ -37,6 +43,14 @@ ReactDOM.render(
           <Route path="/productosDetails/:id" element={<ProductosDetails />} />
           <Route path="/productosForm" element={<ProductosForm />} />
           <Route path="/productosForm/:id" element={<ProductosForm />} />
+          <Route path="/entradas" element={<EntradasList />} />
+          <Route path="/entradasDetails/:id" element={<EntradasDetails />} />
+          <Route path="/entradasForm" element={<EntradasForm />} />
+          <Route path="/entradasForm/:id" element={<EntradasForm />} />
+          <Route path="/salidas" element={<SalidasList />} />
+          <Route path="/salidasDetails/:id" element={<SalidasDetails />} />
+          <Route path="/salidasForm" element={<SalidasForm />} />
+          <Route path="/salidasForm/:id" element={<SalidasForm />} />
           <Route path="*" element={<Result
             style={{ overflowY: 'auto' }}
             status="404"

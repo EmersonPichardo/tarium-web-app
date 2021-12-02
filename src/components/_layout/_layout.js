@@ -45,39 +45,42 @@ function _Layout(props) {
 
   const adminMenu = (
     <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-          <Menu.Item key="1" icon={<HomeOutlined />}>
-            <Link to="/">inicio</Link>
-          </Menu.Item>
-          <Menu.Item key="2" icon={<ShopOutlined />}>
-            <Link to="/sucursales">Sucursales</Link>
-          </Menu.Item>
-          <Menu.Item key="3" icon={<ShoppingOutlined />}>
-            <Link to="/proveedores">Proveedores</Link>
-          </Menu.Item>
-          <Menu.Item key="4" icon={<TagsOutlined />}>
-            <Link to="/productos">Productos</Link>
-          </Menu.Item>
-          <Menu.Item key="5" icon={<TeamOutlined />}>
-            <Link to="/usuarios">Usuarios</Link>
-          </Menu.Item>
-          <Menu.Item key="6" icon={<OrderedListOutlined />}>
-            <Link to="/inventario">Inventario</Link>
-          </Menu.Item>
-        </Menu>
+      <Menu.Item key="1" icon={<HomeOutlined />}>
+        <Link to="/">inicio</Link>
+      </Menu.Item>
+      <Menu.Item key="2" icon={<ShopOutlined />}>
+        <Link to="/sucursales">Sucursales</Link>
+      </Menu.Item>
+      <Menu.Item key="3" icon={<ShoppingOutlined />}>
+        <Link to="/proveedores">Proveedores</Link>
+      </Menu.Item>
+      <Menu.Item key="4" icon={<TagsOutlined />}>
+        <Link to="/productos">Productos</Link>
+      </Menu.Item>
+      <Menu.Item key="5" icon={<TeamOutlined />}>
+        <Link to="/usuarios">Usuarios</Link>
+      </Menu.Item>
+      <Menu.Item key="6" icon={<OrderedListOutlined />}>
+        <Link to="/inventario">Inventario</Link>
+      </Menu.Item>
+    </Menu>
   );
 
   const transactionalMenu = (
     <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-          <Menu.Item key="1" icon={<PullRequestOutlined />}>
-            <Link to="/movimientos">Movimientos</Link>
-          </Menu.Item>
-          <Menu.Item key="2" icon={<DownloadOutlined />}>
-            <Link to="/entradas">Entradas</Link>
-          </Menu.Item>
-          <Menu.Item key="3" icon={<UploadOutlined />}>
-            <Link to="/salidas">Salidas</Link>
-          </Menu.Item>
-        </Menu>
+      <Menu.Item key="1" icon={<HomeOutlined />}>
+        <Link to="/">inicio</Link>
+      </Menu.Item>
+      <Menu.Item key="2" icon={<PullRequestOutlined />}>
+        <Link to="/movimientos">Movimientos</Link>
+      </Menu.Item>
+      <Menu.Item key="3" icon={<DownloadOutlined />}>
+        <Link to="/entradas">Entradas</Link>
+      </Menu.Item>
+      <Menu.Item key="4" icon={<UploadOutlined />}>
+        <Link to="/salidas">Salidas</Link>
+      </Menu.Item>
+    </Menu>
   );
 
   return (
@@ -102,7 +105,7 @@ function _Layout(props) {
                 </Badge>
                 <Dropdown overlay={menu}>
                   <span className="header-icon"><UserOutlined />
-                    <span style={{padding: '0px 24px 0px 6px'}}>{JSON.parse(localStorage.getItem('usuario'))?.nombre || 'Desconocido'}</span>
+                    <span style={{ padding: '0px 24px 0px 6px' }}>{JSON.parse(localStorage.getItem('usuario'))?.nombre || 'Desconocido'}</span>
                   </span>
                 </Dropdown>
               </Space>

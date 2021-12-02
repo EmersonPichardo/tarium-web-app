@@ -3,56 +3,51 @@ import { Link } from "react-router-dom";
 import { Space, Button, Tag, Popconfirm, message, Row, Col, Input, Table } from 'antd';
 import { ZoomInOutlined, PlusCircleFilled, EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons';
 import PageContent from '../../_layout/pageContent/pageContent';
-import './proveedoresList.css';
+import './salidasList.css';
 
 let searchTimeout;
 
-function ProveedoresList() {
+function SalidasList() {
     const columns = [{
-        title: 'Nombre',
-        dataIndex: 'nombre',
-        key: 'nombre',
+        title: 'Id',
+        dataIndex: 'id',
+        key: 'id',
         render: (text, record) => {
             return (
-                <Link to={`/proveedoresDetails/${record.id}`}>
+                <Link to={`/salidasDetails/${record.id}`}>
                     <ZoomInOutlined style={{padding: '0px 6px'}}/>
                     {text}
                 </Link>
             )
         }
     }, {
-        title: 'Contacto',
-        dataIndex: 'contacto',
-        key: 'contacto',
-        render: text => text || '-'
+        title: 'Sucursal',
+        dataIndex: 'sucursal',
+        key: 'sucursal',
+        render: (_, record) => record.sucursal.nombre
     }, {
-        title: 'Estado',
-        dataIndex: 'estado',
-        key: 'estado',
-        render: text => {
-            let color = '';
-
-            if (text.toLowerCase() === 'activo') color = 'success';
-            if (text.toLowerCase() === 'inactivo') color = 'error';
-
-            return (
-                <Tag color={color}>{text}</Tag>
-            )
-        }
+        title: 'Producto',
+        dataIndex: 'producto',
+        key: 'producto',
+        render: (_, record) => record.producto.nombre
+    }, {
+        title: 'Cantidad',
+        dataIndex: 'cantidad',
+        key: 'cantidad'
     }, {
         title: 'Acciones',
         key: 'acciones',
         width: '0px',
         render: (_, record) => (
             <Space size="large">
-                <Link to={`/proveedoresForm/${record.id}`}>
+                <Link to={`/salidasForm/${record.id}`}>
                     <Button type="primary" size="small" icon={<EditOutlined />} ghost>
                         Editar
                     </Button>
                 </Link>
 
                 <Popconfirm
-                    title="¿Desea eliminar este proveedor?"
+                    title="¿Desea eliminar esta salida?"
                     onConfirm={() => eliminar(record.id)}
                     okText="Sí"
                     cancelText="No"
@@ -71,7 +66,7 @@ function ProveedoresList() {
     let [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('https://localhost:44306/api/proveedores', { method: 'GET' })
+        fetch('https://localhost:44306/api/salidas', { method: 'GET' })
             .then(response => response.json())
             .then(_data => {
                 _data.map(d => { d.key = d.id; return d; })
@@ -84,12 +79,12 @@ function ProveedoresList() {
     const eliminar = (id) => {
         setLoading(true);
 
-        fetch(`https://localhost:44306/api/proveedores/${id}`, { method: 'DELETE' })
+        fetch(`https://localhost:44306/api/salidas/${id}`, { method: 'DELETE' })
             .then(response => {
                 if (response.status === 204) {
                     setData(data => data.filter(_data => _data.id !== id));
                     setFilteredData(filteredData => filteredData.filter(_data => _data.id !== id));
-                    message.warning('Proveedor eliminada');
+                    message.warning('Salida eliminada');
                 } else {
                     message.error('Error al eliminar');
                 }
@@ -106,21 +101,22 @@ function ProveedoresList() {
 
             setFilteredData(data.filter(_data => {
                 return (
-                    _data.nombre.toLowerCase().includes(text.toLowerCase()) ||
-                    _data.contacto.toLowerCase().includes(text.toLowerCase()) ||
-                    _data.estado.toLowerCase().includes(text.toLowerCase())
+                    _data.id.toLowerCase().includes(text.toLowerCase()) ||
+                    _data.sucursal.nombre.toLowerCase().includes(text.toLowerCase()) ||
+                    _data.producto.nombre.toLowerCase().includes(text.toLowerCase()) ||
+                    _data.cantidad.toString().toLowerCase().includes(text.toLowerCase())
                 );
             }));
         }, 300);
     }
 
     return (
-        <PageContent title="Proveedores" subtitle="Listado">
+        <PageContent title="Salidas" subtitle="Listado">
             <Row justify="space-between" align="middle" style={{marginBottom: '24px'}}>
                 <Col span={10}>
-                    <Link key="1" to="/proveedoresForm">
+                    <Link key="1" to="/salidasForm">
                         <Button type="primary" size="large" icon={<PlusCircleFilled />}>
-                            Agregar proveedor
+                            Agregar salida
                         </Button>
                     </Link>
                 </Col>
@@ -139,4 +135,4 @@ function ProveedoresList() {
     );
 }
 
-export default ProveedoresList;
+export default SalidasList;
