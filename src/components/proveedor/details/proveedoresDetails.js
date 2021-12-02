@@ -3,11 +3,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Descriptions, Tag, Space, Divider, Button, message } from 'antd';
 import { ArrowLeftOutlined, EditOutlined } from '@ant-design/icons';
 import PageContent from '../../_layout/pageContent/pageContent';
-import './sucursalesDetails.css';
+import './proveedoresDetails.css';
 
 const { Item } = Descriptions;
 
-function SucursalesForm(props) {
+function ProveedoresForm(props) {
     const { id } = useParams();
     let navigate = useNavigate();
     let [loading, setLoading] = useState(true);
@@ -15,7 +15,7 @@ function SucursalesForm(props) {
 
     useEffect(() => {
         if (id) {
-            fetch(`https://localhost:44306/api/sucursales/${id}`, { method: 'GET' })
+            fetch(`https://localhost:44306/api/proveedores/${id}`, { method: 'GET' })
                 .then(response => response.json())
                 .then(_data => {
                     setData(_data);
@@ -28,11 +28,12 @@ function SucursalesForm(props) {
     }, []);
 
     return (
-        <PageContent title="Sucursales" subtitle="Detalles">
-            <Descriptions title={`Sucursal #${id}`} column={1} bordered>
+        <PageContent title="Proveedores" subtitle="Detalles">
+            <Descriptions title={`Proveedor #${id}`} column={1} bordered>
                 <Item label="Id">{data.id}</Item>
                 <Item label="Nombre">{data.nombre}</Item>
-                <Item label="Tipo">{data.tipo}</Item>
+                <Item label="Contacto">{data.contacto}</Item>
+                <Item label="Comentario">{data.comentario}</Item>
                 <Item label="Estado">{<Tag color={data.estado === 'Activo' ? 'success' : 'error'}>{data.estado}</Tag>}</Item>
             </Descriptions>
 
@@ -42,7 +43,7 @@ function SucursalesForm(props) {
                 <Button icon={<ArrowLeftOutlined />} onClick={() => navigate(-1)}>
                     Volver
                 </Button>
-                <Button type="primary" icon={<EditOutlined />} onClick={() => navigate(`/sucursalesForm/${id}`)}>
+                <Button type="primary" icon={<EditOutlined />} onClick={() => navigate(`/proveedoresForm/${id}`)}>
                     Editar
                 </Button>
             </Space>
@@ -50,4 +51,4 @@ function SucursalesForm(props) {
     )
 }
 
-export default SucursalesForm;
+export default ProveedoresForm;

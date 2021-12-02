@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate  } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Row, Typography, Col, Form, Input, Radio, Switch, Space, Divider, Button, message } from 'antd';
 import { CloseCircleOutlined, SaveOutlined } from '@ant-design/icons';
 import PageContent from '../../_layout/pageContent/pageContent';
-import './sucursalesForm.css';
+import './proveedoresForm.css';
 
 const { Title } = Typography;
 const { Item } = Form;
+const { TextArea } = Input;
 
-function SucursalesForm(props) {
+function ProveedoresForm(props) {
     const { id } = useParams();
     let navigate = useNavigate();
     const [form] = Form.useForm();
@@ -17,7 +18,7 @@ function SucursalesForm(props) {
 
     useEffect(() => {
         if (id) {
-            fetch(`https://localhost:44306/api/sucursales/${id}`, { method: 'GET' })
+            fetch(`https://localhost:44306/api/proveedores/${id}`, { method: 'GET' })
                 .then(response => response.json())
                 .then(data => {
                     data.estado = data.estado === 'Activo' ? true : false;
@@ -35,21 +36,21 @@ function SucursalesForm(props) {
         let link, method;
 
         if (id) {
-            link = `https://localhost:44306/api/sucursales/${id}`;
+            link = `https://localhost:44306/api/proveedores/${id}`;
             method = 'PUT';
             values.id = parseInt(id);
         } else {
-            link = 'https://localhost:44306/api/sucursales';
+            link = 'https://localhost:44306/api/proveedores';
             method = 'POST';
         }
-        
+
         values.estado = values.estado ? 'Activo' : 'Inactivo';
         const config = { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(values) }
 
         fetch(link, config)
             .then(response => {
                 if (response.ok) {
-                    message.success('Sucursal guardada');
+                    message.success('Proveedor guardada');
                     navigate(-1);
                 } else {
                     response.json().then(error => {
@@ -65,10 +66,10 @@ function SucursalesForm(props) {
     };
 
     return (
-        <PageContent title="Sucursales" subtitle="Formulario">
+        <PageContent title="Proveedores" subtitle="Formulario">
             <Row>
                 <Col span={8}>
-                    <Title level={5} style={{ marginBottom: '24px' }}>{id ? 'Editar sucursal' : 'Agregar sucursal'}</Title>
+                    <Title level={5} style={{ marginBottom: '24px' }}>{id ? 'Editar proveedor' : 'Agregar proveedor'}</Title>
 
                     <Form
                         form={form}
@@ -76,7 +77,6 @@ function SucursalesForm(props) {
                         onFinish={onFinish}
                         autoComplete="off"
                         initialValues={{
-                            tipo: 'Tienda',
                             estado: true
                         }}
                     >
@@ -91,11 +91,12 @@ function SucursalesForm(props) {
                             <Input disabled={loading} allowClear />
                         </Item>
 
-                        <Item label="Tipo de sucursal" name="tipo">
-                            <Radio.Group buttonStyle="solid" disabled={loading}>
-                                <Radio.Button value="Tienda">Tienda</Radio.Button>
-                                <Radio.Button value="Almacén">Almacén</Radio.Button>
-                            </Radio.Group>
+                        <Item label="Contacto" name="contacto">
+                            <Input disabled={loading} allowClear />
+                        </Item>
+
+                        <Item label="Comentario" name="comentario">
+                            <TextArea showCount maxLength={1000} />
                         </Item>
 
                         <Item label="Estado" name="estado" valuePropName="checked">
@@ -123,4 +124,4 @@ function SucursalesForm(props) {
     )
 }
 
-export default SucursalesForm;
+export default ProveedoresForm;
